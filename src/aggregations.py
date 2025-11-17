@@ -14,8 +14,8 @@ def main():
         pq.write_table(pa.Table.from_pandas(agg1), "processed_data/agg1.parquet")
 
     # 2. Avg volume by sector
-    if {"volume", "sector"}.issubset(df.columns):
-        agg2 = df.groupby("sector")["volume"].mean().reset_index()
+     if {"volume", "sector", "ticker"}.issubset(df.columns):
+        agg2 = df.groupby(["sector", "ticker"])["volume"].mean().reset_index()
         pq.write_table(pa.Table.from_pandas(agg2), "processed_data/agg2.parquet")
 
     # 3. Simple daily return
@@ -27,3 +27,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
